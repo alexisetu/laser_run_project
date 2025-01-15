@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Laser run</string>
+    <string name="courir">Courir</string>
+    <string name="historique_parties">Historique des parties</string>
+    <string name="geolocalisation">Géolocalisation</string>
+    <string name="statistiques">Statistiques</string>
 </resources>
