@@ -1,5 +1,7 @@
 # laser_run_project
 
+dépôt git : https://github.com/alexisetu/laser_run_project/
+
 I/ Maquette
 
 à retrouver sur https://www.figma.com/design/IisAQoPZkDA2J4EH6Jpdqf/Untitled?node-id=0-1&p=f&t=Dn2NdtibziP9AlRh-0
