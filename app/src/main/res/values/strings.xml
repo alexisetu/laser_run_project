@@ -4,4 +4,8 @@
     <string name="historique_parties">Historique des parties</string>
     <string name="geolocalisation">Géolocalisation</string>
     <string name="statistiques">Statistiques</string>
+    <string name="senior">Senior</string>
+    <string name="M40">M40</string>
+    <string name="M60">M60</string>
+    <string name="annuler">Annuler</string>
 </resources>

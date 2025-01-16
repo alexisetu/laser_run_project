@@ -1,5 +1,6 @@
 package com.example.laserrun
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
@@ -16,8 +17,8 @@ class MainActivity : AppCompatActivity() {
 
         val courirButton = findViewById<Button>(R.id.courir)
         courirButton.setOnClickListener {
-            Toast.makeText(this, "this is a test", Toast.LENGTH_SHORT).show()
-            //TODO : changer de page
+            val intent = Intent(this, CategoryChoice::class.java)
+            startActivity(intent)
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
