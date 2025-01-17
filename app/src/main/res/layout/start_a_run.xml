@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/start_a_run"
+    android:background="@color/fondviolet"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:paddingHorizontal="30dp">
+
+    <include layout="@layout/title_layout" />
+
+    <TextView
+        android:id="@+id/category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:textSize="20sp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <Button
+        android:id="@+id/depart"
+        android:paddingVertical="100dp"
+        android:text="@string/depart"
+        style="@style/main_button"/>
+
+    <include layout="@layout/bottom_space" />
+    <include layout="@layout/bottom_space" />
+    <include layout="@layout/bottom_space" />
+</LinearLayout>

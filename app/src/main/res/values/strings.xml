@@ -8,4 +8,6 @@
     <string name="M40">M40</string>
     <string name="M60">M60</string>
     <string name="annuler">Annuler</string>
+    <string name="category_button_text">%1$s\nDistance initiale : %2$d\nTours : %3$d x %4$d\nDistance de tirs : %5$d</string>
+    <string name="depart">Départ</string>
 </resources>

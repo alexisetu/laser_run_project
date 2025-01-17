@@ -28,6 +28,9 @@
         <activity
             android:name=".CategoryChoice"
             android:exported="false"/>
+        <activity
+            android:name=".StartARun"
+            android:exported="false"/>
     </application>
 
 </manifest>
