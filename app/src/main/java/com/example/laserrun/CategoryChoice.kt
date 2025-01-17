@@ -5,9 +5,7 @@ import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.AbsoluteSizeSpan
-import android.widget.Button
 import android.widget.LinearLayout
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -17,6 +15,7 @@ import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import android.content.Intent
 
 class CategoryChoice : AppCompatActivity() {
     private lateinit var binding: CategoryChoiceBinding
@@ -50,7 +49,17 @@ class CategoryChoice : AppCompatActivity() {
                                 setMargins(60, 32, 60, 32)
                             }
 
-                            val text = SpannableString("${category.name.uppercase()}\nDistance initiale : ${category.initialDistance}\nTours : ${category.lapCount} x ${category.lapDistance}\nDistance de tirs : ${category.shootDistance}")
+                            val text = SpannableString(
+                                getString(
+                                    R.string.category_button_text,
+                                    category.name.uppercase(),
+                                    category.initialDistance,
+                                    category.lapCount,
+                                    category.lapDistance,
+                                    category.shootDistance
+                                )
+                            )
+
                             text.setSpan(
                                 AbsoluteSizeSpan(28, true),
                                 0,
@@ -70,6 +79,14 @@ class CategoryChoice : AppCompatActivity() {
                             setPadding(140, 80, 140, 80)
                             setBackgroundColor(ContextCompat.getColor(context, R.color.boutonviolet))
                             cornerRadius = 60
+
+                            setOnClickListener {
+                                val intent = Intent(this@CategoryChoice, StartARun::class.java).apply {
+                                    putExtra("categoryName", category.name)
+                                }
+                                startActivity(intent)
+                            }
+
                         }
                         containerLayout.addView(button)
                     }

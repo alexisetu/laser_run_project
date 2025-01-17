@@ -9,19 +9,7 @@
     android:gravity="center"
     android:paddingHorizontal="30dp">
 
-    <TextView
-        android:id="@+id/app_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginBottom="20dp"
-        android:gravity="center"
-        android:text="@string/app_name"
-        android:textAllCaps="true"
-        android:textColor="@color/white"
-        android:textSize="32sp"
-        android:textStyle="bold" />
+    <include layout="@layout/title_layout" />
 
 
     <ScrollView
@@ -41,16 +29,9 @@
 
         <Button
             android:id="@+id/annuler"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="8dp"
-            android:layout_marginHorizontal="15dp"
-            android:padding="30dp"
-            android:backgroundTint="@color/boutonprincipale"
+            android:paddingVertical="30dp"
             android:text="@string/annuler"
-            android:textSize="20sp"
-            android:layout_marginBottom="60dp"
-            android:textAllCaps="true"
-            app:cornerRadius="15dp"/>
+            style="@style/main_button"/>
+    <include layout="@layout/bottom_space" />
 
 </LinearLayout>
