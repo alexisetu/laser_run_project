@@ -25,6 +25,7 @@ class StartARun : AppCompatActivity() {
             intent.putExtra("CHRONOMETER2_BASE", startTime)
             startActivity(intent)
             finish()
+            //test
         }
     }
 
