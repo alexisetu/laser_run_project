@@ -1,5 +1,6 @@
 package com.example.laserrun
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.laserrun.databinding.StartARunBinding
@@ -14,6 +15,11 @@ class StartARun : AppCompatActivity() {
         setContentView(view)
         val categoryName = intent.getStringExtra("categoryName")
         binding.category.text = categoryName
+        binding.depart.setOnClickListener{
+            finish()
+            val intent = Intent(this, Running::class.java)
+            startActivity(intent)
+        }
     }
 
 
