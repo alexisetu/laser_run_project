@@ -3,5 +3,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="boutonprincipale">#FFAB47BC</color>
     <color name="fondviolet">#FF4A148C</color>
+    <color name="fondvert">#B4F065</color>
     <color name="boutonviolet">#FF7E57C2</color>
 </resources>

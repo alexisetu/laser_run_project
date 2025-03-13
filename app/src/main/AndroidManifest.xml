@@ -31,6 +31,8 @@
         <activity
             android:name=".StartARun"
             android:exported="false"/>
+        <activity android:name=".Running"/>
+        <activity android:name=".Shooting"/>
     </application>
 
 </manifest>
