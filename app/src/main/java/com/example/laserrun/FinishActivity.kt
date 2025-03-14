@@ -15,38 +15,42 @@ class FinishActivity : AppCompatActivity() {
         binding = ActivityFinishBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val totalTime = intent.getLongExtra("TOTAL_TIME", 0) // Récupérer le temps total
-        val runTimes = intent.getLongArrayExtra("RUN_TIMES") ?: longArrayOf() // Récupérer les temps de course
-        val lapTimes = intent.getLongArrayExtra("LAP_TIMES") ?: longArrayOf() // Récupérer les temps de stands
+        val totalTime = intent.getLongExtra("TOTAL_TIME", 0)
+        val runTimes = intent.getLongArrayExtra("RUN_TIMES") ?: longArrayOf()
+        val lapTimes = intent.getLongArrayExtra("LAP_TIMES") ?: longArrayOf()
+        val targetsHitArray = intent.getIntArrayExtra("TARGETS_HIT_ARRAY") ?: IntArray(lapTimes.size) { 5 }
 
         binding.totalTime.text = getString(R.string.temps_total, formatTime(totalTime))
 
-        val runTime = runTimes.sum() // Somme des temps de course
-        val standTime = lapTimes.sum() // Somme des temps de stands
+        val runTime = runTimes.sum()
+        val standTime = lapTimes.sum()
 
         binding.runTime.text = getString(R.string.temps_vitesse_run, formatTime(runTime))
-
         binding.standTime.text = getString(R.string.temps_stand, formatTime(standTime))
 
         val lapTimesText = StringBuilder()
         for (i in runTimes.indices) {
-            lapTimesText.append("Tour $i : ${formatTime(runTimes[i])}\n") // Ajouter chaque temps de course
+            lapTimesText.append("Tour $i : ${formatTime(runTimes[i])}\n")
         }
-        binding.lapTimes.text = lapTimesText.toString().trim() // Afficher dans le TextView
+        binding.lapTimes.text = lapTimesText.toString().trim()
 
         val standTimesText = StringBuilder()
+        var totalTargetsHit = 0
         for (i in lapTimes.indices) {
-            standTimesText.append("Stand ${i + 1} : 5 tirs (${formatTime(lapTimes[i])})\n") // Ajouter chaque temps de stand
+            val targetsHit = if (i < targetsHitArray.size) targetsHitArray[i] else 5
+            totalTargetsHit += targetsHit
+            standTimesText.append("Stand ${i + 1} : $targetsHit cibles touchées (${formatTime(lapTimes[i])})\n")
         }
         binding.standTimes.text = standTimesText.toString().trim()
 
-        val missedTargets = 0
+        val totalPossibleTargets = lapTimes.size * 5
+        val missedTargets = totalPossibleTargets - totalTargetsHit
         val avgStandTime = if (lapTimes.isNotEmpty()) {
-            lapTimes.map { formatTime(it).removeSuffix(" s").toDouble() }.average() // Convertir en secondes et calculer la moyenne
+            lapTimes.map { formatTime(it).removeSuffix(" s").toDouble() }.average()
         } else {
             0.0
         }
-        val shootingStatsText = "Cibles ratés : $missedTargets\n" +
+        val shootingStatsText = "Cibles ratées : $missedTargets\n" +
                 "Temps moyen sur le stand : ${String.format("%.1f", avgStandTime)} s"
         binding.shootingStats.text = shootingStatsText
 
@@ -59,13 +63,7 @@ class FinishActivity : AppCompatActivity() {
     }
 
     private fun formatTime(timeInMillis: Long): String {
-        val seconds = timeInMillis / 1000 // Convertir les millisecondes en secondes
-        return String.format("%d s", seconds) // Afficher en secondes
-    }
-
-    private fun calculateSpeed(timeInMillis: Long, distanceInMeters: Int): Double {
-        val timeInHours = timeInMillis / (1000.0 * 60.0 * 60.0)
-        val distanceInKm = distanceInMeters / 1000.0
-        return if (timeInHours > 0) distanceInKm / timeInHours else 0.0
+        val seconds = timeInMillis / 1000
+        return String.format("%d s", seconds)
     }
 }

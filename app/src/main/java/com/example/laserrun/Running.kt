@@ -1,5 +1,6 @@
 package com.example.laserrun
 
+import android.content.Intent
 import android.graphics.Color
 
 class Running : RunningAndShooting() {
