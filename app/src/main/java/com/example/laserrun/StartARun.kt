@@ -16,7 +16,15 @@ class StartARun : AppCompatActivity() {
         setContentView(view)
 
         val categoryName = intent.getStringExtra("categoryName")
+        val initialDistance = intent.getStringExtra("INITIAL_DISTANCE")
+        val lapDistance = intent.getStringExtra("LAP_DISTANCE")
+        val lapCount = intent.getIntExtra("LAP_COUNT", 0)
+        val shootDistance = intent.getStringExtra("SHOOT_DISTANCE")
+
         binding.category.text = categoryName
+        binding.initialDistance.text = "Distance initiale: $initialDistance m"
+        binding.lap.text = "Tours: $lapCount x $lapDistance m"
+        binding.shootDistance.text = "Distance de tir: $shootDistance m"
 
         binding.depart.setOnClickListener{
             val startTime = SystemClock.elapsedRealtime()
