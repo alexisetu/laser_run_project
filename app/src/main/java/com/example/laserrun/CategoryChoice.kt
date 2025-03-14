@@ -83,6 +83,8 @@ class CategoryChoice : AppCompatActivity() {
                             setOnClickListener {
                                 val intent = Intent(this@CategoryChoice, StartARun::class.java).apply {
                                     putExtra("categoryName", category.name)
+                                    putExtra("LAP_COUNT", category.lapCount)
+                                    putExtra("CURRENT_LAP", 0)
                                 }
                                 startActivity(intent)
                             }
