@@ -83,6 +83,9 @@ class CategoryChoice : AppCompatActivity() {
                             setOnClickListener {
                                 val intent = Intent(this@CategoryChoice, StartARun::class.java).apply {
                                     putExtra("categoryName", category.name)
+                                    putExtra("INITIAL_DISTANCE", category.initialDistance.toString())
+                                    putExtra("LAP_DISTANCE", category.lapDistance.toString())
+                                    putExtra("SHOOT_DISTANCE", category.shootDistance.toString())
                                     putExtra("LAP_COUNT", category.lapCount)
                                     putExtra("CURRENT_LAP", 0)
                                 }
