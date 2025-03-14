@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.os.SystemClock
 import android.widget.Chronometer
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.laserrun.databinding.RunningAndShootingBinding
 
@@ -14,9 +15,10 @@ abstract class RunningAndShooting : AppCompatActivity() {
     abstract val fondColor: Int
     abstract val isLastLap: Boolean
 
-    private lateinit var binding: RunningAndShootingBinding
-    private lateinit var chronometer1: Chronometer
-    private lateinit var chronometer2: Chronometer
+    protected lateinit var binding: RunningAndShootingBinding
+    protected lateinit var chronometer1: Chronometer
+    protected lateinit var chronometer2: Chronometer
+    private lateinit var statusText: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +28,7 @@ abstract class RunningAndShooting : AppCompatActivity() {
 
         chronometer1 = binding.chronometer1
         chronometer2 = binding.chronometer2
+        statusText = binding.statusText
 
         chronometer1.format = "Temps global : %s"
         chronometer2.format = "Temps tour : %s"
@@ -42,6 +45,8 @@ abstract class RunningAndShooting : AppCompatActivity() {
         chronometer2.base = chronometer2Base
         chronometer2.start()
 
+        updateStatusText()
+
         binding.button.setOnClickListener {
             val currentLap = intent.getIntExtra("CURRENT_LAP", 0)
             val lapCount = intent.getIntExtra("LAP_COUNT", 0)
@@ -49,6 +54,7 @@ abstract class RunningAndShooting : AppCompatActivity() {
 
             val runTimes = intent.getLongArrayExtra("RUN_TIMES") ?: longArrayOf()
             val lapTimes = intent.getLongArrayExtra("LAP_TIMES") ?: longArrayOf()
+            val targetsHitArray = intent.getIntArrayExtra("TARGETS_HIT_ARRAY") ?: IntArray(lapCount) { 5 }
 
             val updatedRunTimes = if (this is Running) runTimes + newLapTime else runTimes
             val updatedLapTimes = if (this is Shooting) lapTimes + newLapTime else lapTimes
@@ -59,6 +65,7 @@ abstract class RunningAndShooting : AppCompatActivity() {
                     putExtra("TOTAL_TIME", totalTime)
                     putExtra("RUN_TIMES", updatedRunTimes)
                     putExtra("LAP_TIMES", updatedLapTimes)
+                    putExtra("TARGETS_HIT_ARRAY", targetsHitArray)
                 }
                 startActivity(intent)
                 finish()
@@ -75,10 +82,24 @@ abstract class RunningAndShooting : AppCompatActivity() {
                     putExtra("LAP_TIMES", updatedLapTimes)
                     putExtra("CURRENT_LAP", nextLap)
                     putExtra("LAP_COUNT", lapCount)
+                    putExtra("TARGETS_HIT_ARRAY", targetsHitArray)
                 }
                 startActivity(intent)
                 finish()
             }
         }
+    }
+    private fun updateStatusText() {
+        val currentLap = intent.getIntExtra("CURRENT_LAP", 0)
+        val lapCount = intent.getIntExtra("LAP_COUNT", 0)
+
+        val status = when {
+            currentLap == 0 -> "Tour initial"
+            this is Shooting -> "Stand $currentLap/$lapCount"
+            this is Running -> "Course $currentLap/$lapCount"
+            else -> ""
+        }
+
+        statusText.text = status
     }
 }
