@@ -21,9 +21,15 @@ class StartARun : AppCompatActivity() {
         binding.depart.setOnClickListener{
             val startTime = SystemClock.elapsedRealtime()
 
+            val lapCount = intent.getIntExtra("LAP_COUNT", 0)
+            val currentLap = intent.getIntExtra("CURRENT_LAP", 0)
+
             val intent = Intent(this, Running::class.java)
             intent.putExtra("CHRONOMETER1_BASE", startTime)
             intent.putExtra("CHRONOMETER2_BASE", startTime)
+            intent.putExtra("LAP_COUNT", lapCount)
+            intent.putExtra("CURRENT_LAP", currentLap)
+            intent.putExtra("LAP_TIMES", longArrayOf())
             startActivity(intent)
             finish()
         }

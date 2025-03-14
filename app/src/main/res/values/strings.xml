@@ -11,5 +11,12 @@
     <string name="category_button_text">%1$s\nDistance initiale : %2$d\nTours : %3$d x %4$d m\nDistance de tirs : %5$d</string>
     <string name="depart">Départ</string>
     <string name="arrivee_stand">Arrivée au stand</string>
-    <string name="fivetarget">5 cibles touchées</string>
+    <string name="cinqcibles">5 cibles touchées</string>
+    <string name="felicitation">Félicitations !</string>
+    <string name="accueil">Accueil</string>
+    <string name="temps_total">Temps total : %1$s</string>
+    <string name="temps_vitesse_run">Temps et vitesse sur le run : %1$s</string>
+    <string name="temps_stand">Temps sur le stand : %1$s</string>
+    <string name="temps_tour">Temps par tour : </string>
+    <string name="resultat_stand">Résultats par stand de tir : </string>
 </resources>
