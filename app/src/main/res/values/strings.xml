@@ -19,4 +19,5 @@
     <string name="temps_stand">Temps sur le stand : %1$s</string>
     <string name="temps_tour">Temps par tour : </string>
     <string name="resultat_stand">Résultats par stand de tir : </string>
+    <string name="fin_course">Fin de course</string>
 </resources>
