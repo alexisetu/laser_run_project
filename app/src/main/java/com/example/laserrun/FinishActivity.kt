@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.laserrun.databinding.ActivityFinishBinding
-import java.util.concurrent.TimeUnit
 
 class FinishActivity : AppCompatActivity() {
 
@@ -25,12 +24,13 @@ class FinishActivity : AppCompatActivity() {
         val runTime = runTimes.sum()
         val standTime = lapTimes.sum()
 
-        binding.runTime.text = getString(R.string.temps_vitesse_run, formatTime(runTime))
+        binding.runTime.text = getString(R.string.temps_run, formatTime(runTime))
         binding.standTime.text = getString(R.string.temps_stand, formatTime(standTime))
 
         val lapTimesText = StringBuilder()
         for (i in runTimes.indices) {
-            lapTimesText.append("Tour $i : ${formatTime(runTimes[i])}\n")
+            lapTimesText.append(getString(R.string.tour_format, i, formatTime(runTimes[i])))
+            lapTimesText.append("\n")
         }
         binding.lapTimes.text = lapTimesText.toString().trim()
 
@@ -39,7 +39,8 @@ class FinishActivity : AppCompatActivity() {
         for (i in lapTimes.indices) {
             val targetsHit = if (i < targetsHitArray.size) targetsHitArray[i] else 5
             totalTargetsHit += targetsHit
-            standTimesText.append("Stand ${i + 1} : $targetsHit cibles touchées (${formatTime(lapTimes[i])})\n")
+            standTimesText.append(getString(R.string.stand_format, i + 1, targetsHit, formatTime(lapTimes[i])))
+            standTimesText.append("\n")
         }
         binding.standTimes.text = standTimesText.toString().trim()
 
@@ -50,8 +51,9 @@ class FinishActivity : AppCompatActivity() {
         } else {
             0.0
         }
-        val shootingStatsText = "Cibles ratées : $missedTargets\n" +
-                "Temps moyen sur le stand : ${String.format("%.1f", avgStandTime)} s"
+        
+        val shootingStatsText = getString(R.string.cibles_ratees, missedTargets) + "\n" +
+                getString(R.string.temps_moyen_stand, String.format("%.1f", avgStandTime))
         binding.shootingStats.text = shootingStatsText
 
         binding.btnClose.setOnClickListener {

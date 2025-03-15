@@ -15,9 +15,21 @@
     <string name="felicitation">Félicitations !</string>
     <string name="accueil">Accueil</string>
     <string name="temps_total">Temps total : %1$s</string>
-    <string name="temps_vitesse_run">Temps et vitesse sur le run : %1$s</string>
+    <string name="temps_run">Temps sur le run : %1$s</string>
     <string name="temps_stand">Temps sur le stand : %1$s</string>
     <string name="temps_tour">Temps par tour : </string>
     <string name="resultat_stand">Résultats par stand de tir : </string>
     <string name="fin_course">Fin de course</string>
+    <string name="tour_format">Tour %1$d : %2$s</string>
+    <string name="stand_format">Stand %1$d : %2$d cibles touchées (%3$s)</string>
+    <string name="cibles_ratees">Cibles ratées : %1$d</string>
+    <string name="temps_moyen_stand">Temps moyen sur le stand : %1$s s</string>
+    <string name="temps_global_format">Temps global : %s</string>
+    <string name="temps_tour_format">Temps tour : %s</string>
+    <string name="tour_initial">Tour initial</string>
+    <string name="stand_status">Stand %1$d/%2$d</string>
+    <string name="course_status">Course %1$d/%2$d</string>
+    <string name="distance_initiale_format">Distance initiale: %1$s m</string>
+    <string name="tours_format">Tours: %1$d x %2$s m</string>
+    <string name="distance_tir_format">Distance de tir: %1$s m</string>
 </resources>

@@ -22,9 +22,9 @@ class StartARun : AppCompatActivity() {
         val shootDistance = intent.getStringExtra("SHOOT_DISTANCE")
 
         binding.category.text = categoryName
-        binding.initialDistance.text = "Distance initiale: $initialDistance m"
-        binding.lap.text = "Tours: $lapCount x $lapDistance m"
-        binding.shootDistance.text = "Distance de tir: $shootDistance m"
+        binding.initialDistance.text = getString(R.string.distance_initiale_format, initialDistance)
+        binding.lap.text = getString(R.string.tours_format, lapCount, lapDistance)
+        binding.shootDistance.text = getString(R.string.distance_tir_format, shootDistance)
 
         binding.depart.setOnClickListener{
             val startTime = SystemClock.elapsedRealtime()
@@ -42,6 +42,4 @@ class StartARun : AppCompatActivity() {
             finish()
         }
     }
-
-
 }

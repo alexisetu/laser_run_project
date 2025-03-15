@@ -55,7 +55,7 @@ class Shooting : RunningAndShooting() {
         }
 
         val mainLayout = findViewById<LinearLayout>(R.id.runningpage)
-        mainLayout.addView(targetButtonsLayout, mainLayout.childCount - 1) // Ajouter avant le bottom_space
+        mainLayout.addView(targetButtonsLayout, mainLayout.childCount - 1)
 
         binding.button.setOnClickListener(null)
         binding.button.setOnClickListener {
@@ -72,20 +72,17 @@ class Shooting : RunningAndShooting() {
                 targetsHitArray[currentLap - 1] = targetsHit
             }
 
-            val updatedRunTimes = runTimes
             val updatedLapTimes = lapTimes + newLapTime
 
             chronometer2.base = SystemClock.elapsedRealtime()
             chronometer2.start()
 
-            val nextLap = currentLap
-
             val intent = Intent(this, destination).apply {
                 putExtra("CHRONOMETER1_BASE", chronometer1.base)
                 putExtra("CHRONOMETER2_BASE", chronometer2.base)
-                putExtra("RUN_TIMES", updatedRunTimes)
+                putExtra("RUN_TIMES", runTimes)
                 putExtra("LAP_TIMES", updatedLapTimes)
-                putExtra("CURRENT_LAP", nextLap)
+                putExtra("CURRENT_LAP", currentLap)
                 putExtra("LAP_COUNT", lapCount)
                 putExtra("TARGETS_HIT", targetsHit)
                 putExtra("TARGETS_HIT_ARRAY", targetsHitArray)

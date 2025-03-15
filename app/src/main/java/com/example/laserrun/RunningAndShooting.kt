@@ -31,14 +31,16 @@ abstract class RunningAndShooting : AppCompatActivity() {
         chronometer2 = binding.chronometer2
         statusText = binding.statusText
 
-        chronometer1.format = "Temps global : %s"
-        chronometer2.format = "Temps tour : %s"
+        chronometer1.format = getString(R.string.temps_global_format)
+        chronometer2.format = getString(R.string.temps_tour_format)
 
         binding.button.text = buttonText
         binding.runningpage.setBackgroundColor(fondColor)
 
-        val chronometer1Base = intent.getLongExtra("CHRONOMETER1_BASE", SystemClock.elapsedRealtime())
-        val chronometer2Base = intent.getLongExtra("CHRONOMETER2_BASE", SystemClock.elapsedRealtime())
+        val chronometer1Base =
+            intent.getLongExtra("CHRONOMETER1_BASE", SystemClock.elapsedRealtime())
+        val chronometer2Base =
+            intent.getLongExtra("CHRONOMETER2_BASE", SystemClock.elapsedRealtime())
 
         chronometer1.base = chronometer1Base
         chronometer1.start()
@@ -46,38 +48,31 @@ abstract class RunningAndShooting : AppCompatActivity() {
         chronometer2.base = chronometer2Base
         chronometer2.start()
 
-        // Ajouter un écouteur pour vérifier le temps écoulé
         if (this is Shooting) {
             chronometer2.setOnChronometerTickListener { chronometer ->
                 val elapsedMillis = SystemClock.elapsedRealtime() - chronometer.base
                 val elapsedSeconds = elapsedMillis / 1000
-                
-                // Si le temps écoulé est supérieur ou égal à 50 secondes et que l'alerte n'a pas encore été affichée
+
                 if (elapsedSeconds >= 50 && !isAlertShown) {
-                    // Changer la couleur du texte du chronomètre en rouge
                     chronometer.setTextColor(Color.RED)
-                    
-                    // Faire clignoter le fond de l'écran
+
                     binding.runningpage.setBackgroundColor(Color.RED)
                     binding.runningpage.postDelayed({
                         binding.runningpage.setBackgroundColor(fondColor)
                     }, 500)
-                    
-                    // Faire vibrer le téléphone (nécessite la permission VIBRATE)
+
                     val vibrator = getSystemService(VIBRATOR_SERVICE) as android.os.Vibrator
-                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                        vibrator.vibrate(android.os.VibrationEffect.createOneShot(500, android.os.VibrationEffect.DEFAULT_AMPLITUDE))
-                    } else {
-                        @Suppress("DEPRECATION")
-                        vibrator.vibrate(500)
-                    }
-                    
+                    vibrator.vibrate(
+                        android.os.VibrationEffect.createOneShot(
+                            500,
+                            android.os.VibrationEffect.DEFAULT_AMPLITUDE
+                        )
+                    )
+
                     isAlertShown = true
                 }
-                
-                // Si le temps écoulé est inférieur à 50 secondes et que l'alerte a été affichée (réinitialisation)
+
                 if (elapsedSeconds < 50 && isAlertShown) {
-                    chronometer.setTextColor(Color.WHITE)
                     isAlertShown = false
                 }
             }
@@ -92,7 +87,8 @@ abstract class RunningAndShooting : AppCompatActivity() {
 
             val runTimes = intent.getLongArrayExtra("RUN_TIMES") ?: longArrayOf()
             val lapTimes = intent.getLongArrayExtra("LAP_TIMES") ?: longArrayOf()
-            val targetsHitArray = intent.getIntArrayExtra("TARGETS_HIT_ARRAY") ?: IntArray(lapCount) { 5 }
+            val targetsHitArray =
+                intent.getIntArrayExtra("TARGETS_HIT_ARRAY") ?: IntArray(lapCount) { 5 }
 
             val updatedRunTimes = if (this is Running) runTimes + newLapTime else runTimes
             val updatedLapTimes = if (this is Shooting) lapTimes + newLapTime else lapTimes
@@ -127,14 +123,15 @@ abstract class RunningAndShooting : AppCompatActivity() {
             }
         }
     }
+
     private fun updateStatusText() {
         val currentLap = intent.getIntExtra("CURRENT_LAP", 0)
         val lapCount = intent.getIntExtra("LAP_COUNT", 0)
 
         val status = when {
-            currentLap == 0 -> "Tour initial"
-            this is Shooting -> "Stand $currentLap/$lapCount"
-            this is Running -> "Course $currentLap/$lapCount"
+            currentLap == 0 -> getString(R.string.tour_initial)
+            this is Shooting -> getString(R.string.stand_status, currentLap, lapCount)
+            this is Running -> getString(R.string.course_status, currentLap, lapCount)
             else -> ""
         }
 
