@@ -19,6 +19,7 @@ abstract class RunningAndShooting : AppCompatActivity() {
     protected lateinit var chronometer1: Chronometer
     protected lateinit var chronometer2: Chronometer
     private lateinit var statusText: TextView
+    private var isAlertShown = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +45,43 @@ abstract class RunningAndShooting : AppCompatActivity() {
 
         chronometer2.base = chronometer2Base
         chronometer2.start()
+
+        // Ajouter un écouteur pour vérifier le temps écoulé
+        if (this is Shooting) {
+            chronometer2.setOnChronometerTickListener { chronometer ->
+                val elapsedMillis = SystemClock.elapsedRealtime() - chronometer.base
+                val elapsedSeconds = elapsedMillis / 1000
+                
+                // Si le temps écoulé est supérieur ou égal à 50 secondes et que l'alerte n'a pas encore été affichée
+                if (elapsedSeconds >= 50 && !isAlertShown) {
+                    // Changer la couleur du texte du chronomètre en rouge
+                    chronometer.setTextColor(Color.RED)
+                    
+                    // Faire clignoter le fond de l'écran
+                    binding.runningpage.setBackgroundColor(Color.RED)
+                    binding.runningpage.postDelayed({
+                        binding.runningpage.setBackgroundColor(fondColor)
+                    }, 500)
+                    
+                    // Faire vibrer le téléphone (nécessite la permission VIBRATE)
+                    val vibrator = getSystemService(VIBRATOR_SERVICE) as android.os.Vibrator
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                        vibrator.vibrate(android.os.VibrationEffect.createOneShot(500, android.os.VibrationEffect.DEFAULT_AMPLITUDE))
+                    } else {
+                        @Suppress("DEPRECATION")
+                        vibrator.vibrate(500)
+                    }
+                    
+                    isAlertShown = true
+                }
+                
+                // Si le temps écoulé est inférieur à 50 secondes et que l'alerte a été affichée (réinitialisation)
+                if (elapsedSeconds < 50 && isAlertShown) {
+                    chronometer.setTextColor(Color.WHITE)
+                    isAlertShown = false
+                }
+            }
+        }
 
         updateStatusText()
 
